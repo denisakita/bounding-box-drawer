@@ -17,6 +17,7 @@ const BoundingBoxEditor: React.FC = () => {
     const [loadedImage, setLoadedImage] = useState<HTMLImageElement | null>(null);
     const [startPos, setStartPos] = useState<{ x: number; y: number } | null>(null);
 
+    // Load bounding boxes for the image when component mounts or image changes
     useEffect(() => {
         const loadBoundingBoxes = async () => {
             const boxes = await fetchBoundingBoxes(imageName);
@@ -25,6 +26,7 @@ const BoundingBoxEditor: React.FC = () => {
         loadBoundingBoxes();
     }, [imageName]);
 
+    // Draw image and bounding boxes on canvas when image or boundingBoxes change
     useEffect(() => {
         const img = new Image();
         img.src = imageUrl;
@@ -41,6 +43,7 @@ const BoundingBoxEditor: React.FC = () => {
         };
     }, [imageUrl, boundingBoxes]);
 
+    // Render bounding boxes on canvas
     const renderBoundingBoxes = (ctx: CanvasRenderingContext2D, boxes: BoundingBox[]) => {
         if (loadedImage) {
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -54,6 +57,7 @@ const BoundingBoxEditor: React.FC = () => {
         }
     };
 
+    // Draw resize handles for a bounding box
     const drawResizeHandles = (ctx: CanvasRenderingContext2D, box: BoundingBox) => {
         const handleSize = 8;
         ctx.fillStyle = 'blue';
@@ -72,6 +76,7 @@ const BoundingBoxEditor: React.FC = () => {
         });
     };
 
+    // Handle mouse down event on canvas
     const handleMouseDown = (e: React.MouseEvent) => {
         const canvas = canvasRef.current;
         if (canvas) {
@@ -90,6 +95,7 @@ const BoundingBoxEditor: React.FC = () => {
                 }
             }
 
+            // Check if clicked inside an existing box or create a new box
             const clickedBox = boundingBoxes.find(box => x >= box.x && x <= box.x + box.width && y >= box.y && y <= box.y + box.height);
             if (clickedBox) {
                 setSelectedBoxId(clickedBox.id);
@@ -102,6 +108,7 @@ const BoundingBoxEditor: React.FC = () => {
         }
     };
 
+    // Handle mouse move event on canvas
     const handleMouseMove = (e: React.MouseEvent) => {
         if (!drawing || !currentBox || !startPos) return;
         const canvas = canvasRef.current;
@@ -133,6 +140,7 @@ const BoundingBoxEditor: React.FC = () => {
         setStartPos(null);
     };
 
+    // Check if a point (x, y) is near the edge of a box
     const isNearEdge = (x: number, y: number, box: BoundingBox): boolean => {
         const margin = 8;
         const nearLeft = Math.abs(x - box.x) < margin;
@@ -143,6 +151,7 @@ const BoundingBoxEditor: React.FC = () => {
         return nearLeft || nearRight || nearTop || nearBottom;
     };
 
+    // Handle click on a bounding box
     const handleBoxClick = (e: React.MouseEvent) => {
         const canvas = canvasRef.current;
         if (canvas) {
@@ -157,6 +166,7 @@ const BoundingBoxEditor: React.FC = () => {
         }
     };
 
+    // Delete the selected box
     const deleteSelectedBox = () => {
         if (selectedBoxId !== null) {
             setBoundingBoxes(prev => prev.filter(box => box.id !== selectedBoxId));
@@ -164,6 +174,7 @@ const BoundingBoxEditor: React.FC = () => {
         }
     };
 
+    // Save bounding boxes to backend
     const saveBoundingBoxesHandler = async () => {
         await saveBoundingBoxes(imageName, boundingBoxes);
     };
