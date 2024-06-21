@@ -1,0 +1,104 @@
+:root {
+    --primary-color: #4CAF50;
+    --primary-color-hover: #45a049;
+    --primary-color-active: #3e8e41;
+    --primary-color-disabled: #cccccc;
+    --danger-color: #f44336;
+    --danger-color-hover: #e41f1f;
+    --danger-color-active: #c11818;
+    --canvas-border-color: #333;
+    --button-shadow: rgba(0, 0, 0, 0.2);
+}
+
+.canvas-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    max-width: 800px;
+    position: relative;
+
+}
+
+
+.canvas {
+    border: 2px solid var(--canvas-border-color);
+    border-radius: 10px;
+    cursor: crosshair;
+    box-shadow: 0 4px 8px var(--button-shadow);
+}
+
+.canvas-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: var(--canvas-border-color);
+    align-self: flex-start;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+.button {
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--button-shadow);
+}
+
+.button:hover {
+    background: var(--primary-color-hover);
+    transform: translateY(-2px);
+}
+
+.button:active {
+    background: var(--primary-color-active);
+    transform: translateY(0);
+}
+
+.button:disabled {
+    background: var(--primary-color-disabled);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.button.close {
+    background: var(--danger-color);
+}
+
+.button.close:hover {
+    background: var(--danger-color-hover);
+    transform: translateY(-2px);
+}
+
+.button.close:active {
+    background: var(--danger-color-active);
+    transform: translateY(0);
+}
+
+.resize-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: blue;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
