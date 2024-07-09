@@ -112,8 +112,12 @@ The frontend has two main components:
 - **Landing Page (`LandingPage.tsx`)**: This component provides an overview of uploaded images and allows users to
   upload new images.
 
+![Image List](src/images/image-list.png)
+
 - **Bounding Box Editor (`BoundingBoxEditor.tsx`)**: This component enables users to draw and manage bounding boxes on
   images.
+
+![Image Details](src/images/image-details.png)
 
 ## License
 
